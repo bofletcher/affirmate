@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styles from './Player.module.css';
 import soundFile from './synth.wav';
+import loop from './loop.flac'
+import rain from './rain-01.mp3'
 
 class Player extends Component {
   state = {
@@ -8,10 +10,11 @@ class Player extends Component {
     affirmations: [],
     affirmation: '',
     lengthOfTime: 0,
-    backgroundAudioPlaying: false
+    playing: false,
+    track: null
   }
 
-  audio = new Audio(soundFile)
+
 
   clearAffirmationsList = () => {
     this.setState({affirmations: []})
@@ -45,6 +48,12 @@ class Player extends Component {
     })
   }
 
+  handleTrackChange = (e) => {
+    this.setState({
+      track: e.target.value,
+    })
+  }
+
   onRemoveAffirmation = (i) => {
       this.setState(state => {
         const affirmations = state.affirmations.filter((item, j) => i !==j);
@@ -55,43 +64,103 @@ class Player extends Component {
   }
 
 
-  affirm(affirmation) {
-    this.voices = window.speechSynthesis.getVoices()
-    if(this.voices.onvoiceschanged !== undefined) {
-      this.voices.onvoiceschanged = window.speechSynthesis.getVoices;
-    }
-    this.affirmationVoice = new SpeechSynthesisUtterance(affirmation)
-    this.affirmationVoice.rate = 0.5
-    this.affirmationVoice.pitch = 0.3
-    
-    // repeat with the interval of 3 seconds
-    let repeater = setInterval(() =>  {
-      window.speechSynthesis.speak(this.affirmationVoice)
-    }, 7000);
+  // affirm(affirmation) {
+  //   this.voices = window.speechSynthesis.getVoices()
+  //   if(this.voices.onvoiceschanged !== undefined) {
+  //     this.voices.onvoiceschanged = window.speechSynthesis.getVoices;
+  //   }
+  //   this.affirmationVoice = new SpeechSynthesisUtterance(affirmation)
+  //   this.affirmationVoice.rate = 0.5
+  //   this.affirmationVoice.pitch = 0.3
 
-    // after 5 seconds stop and stop background audio
+    
+  //   // repeat with the interval of 7 seconds
+  //   let repeater = setInterval(() =>  {
+  //     window.speechSynthesis.speak(this.affirmationVoice)
+  //   }, 7000);
+
+  //   // after user specified amount of time, stop affirmations loop and music 
+  //   setTimeout(() => { 
+  //     clearInterval(repeater); 
+  //     this.audio.pause()
+  //   }, this.state.lengthOfTime);
+
+  //   this.audio.play()
+  //   this.audio.loop = true;
+  //   this.audio.volume = 0.7;
+  // }
+
+  closeModal = () => {
+    this.setState({
+      playing: false,
+      //lengthOfTime: 0
+    });
+    this.audio.pause()
+    this.audio.currentTime = 0;
+    clearInterval(this.repeater)
+  }
+
+  repeater; 
+
+  newAffirm(affirmations) {
+      this.audio = new Audio(this.state.track)
+
+      this.repeater = setInterval(() => {
+      affirmations.forEach(element => {
+        this.voices = window.speechSynthesis.getVoices()
+        if(this.voices.onvoiceschanged !== undefined) {
+          this.voices.onvoiceschanged = window.speechSynthesis.getVoices;
+        }
+        this.affirmationVoice = new SpeechSynthesisUtterance(element)
+        this.affirmationVoice.rate = 0.5
+        this.affirmationVoice.pitch = 0.3
+  
+        
+        window.speechSynthesis.speak(this.affirmationVoice)
+  
+      });
+
+    }, 25000)
+
     setTimeout(() => { 
-      clearInterval(repeater); 
-      alert('stop'); 
+      clearInterval(this.repeater); 
       this.audio.pause()
+      this.audio.currentTime = 0;
+      this.setState({
+        playing: false
+      })
     }, this.state.lengthOfTime);
 
     this.audio.play()
+    this.setState({
+      playing: true
+    })
     this.audio.loop = true;
     this.audio.volume = 0.7;
   }
+
     
   render() {
+     
+    let  attachedStyles = [ styles.modalDiv, styles.modalHide ]; 
+    if (this.state.playing === true) {
+      attachedStyles = [styles.modalDiv, styles.modalShow]
+    }
     
     return(
       
       <div className ={styles.playerContainer}>
-        <textarea className ={styles.formElement} placeholder="Type your affirmation"
+        {/* <textarea className ={styles.formElement} placeholder="Type your affirmation"
           onChange={this.handleAffirmationChange}
         >
-        </textarea>
+        </textarea> */}
 
-        <input type="text" value={this.state.value} onChange={this.onChangeAffirmation}/>
+        <input 
+          type="text" 
+          value={this.state.value} 
+          onChange={this.onChangeAffirmation}
+          placeholder="Type your affirmation"
+          />
 
         <ul>
           {this.state.affirmations.map((item, index)=> (
@@ -110,8 +179,16 @@ class Player extends Component {
           Reset Affirmations List
         </button>
 
+          <label className={styles.formElement}>Choose your background music</label>
+          <select className={styles.formElement} onChange={this.handleTrackChange}>
+          <option defaultValue value="null"> -- Choose a track -- </option>
+            <option value={soundFile}>track 1</option>
+            <option value={loop}>track 2</option>
+            <option value={rain}>track 3</option>
+          </select>
+
           <label className ={styles.formElement} >How Long Do You Want to Re-program your subconcious</label>
-          <select className ={styles.formElement} onChange={this.handleTimeChange} name="" id="">]
+          <select className ={styles.formElement} onChange={this.handleTimeChange}>]
             <option defaultValue value="null"> -- Enter a time -- </option>
             <option value="20000">20 Seconds</option>
             <option value="300000">5 Minutes</option>
@@ -127,7 +204,10 @@ class Player extends Component {
             <option value="3.3e+6">55 Minutes</option>
             <option value="3.6e+6">1 Hour</option>
           </select>
-        <button className ={styles.formElement} onClick={() =>this.affirm(this.state.affirmation)}>AFFIRM</button>
+        <button className ={styles.formElement} onClick={() =>this.newAffirm(this.state.affirmations)}>BEGIN SUBCONSCIOUS PROGRAMMING</button>
+        <div className={attachedStyles.join(' ')} onClick={this.closeModal}>
+          CLOSE
+        </div>
       </div>
 
     )
