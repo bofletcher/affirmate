@@ -4,7 +4,7 @@ import Player from './components/Player/Player'
 
 function App() {
   return (
-    <div>
+    <div className="appContainer">
       <Player />
     </div>
   );

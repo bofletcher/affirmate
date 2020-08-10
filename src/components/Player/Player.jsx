@@ -4,6 +4,7 @@ import soundFile from './synth.wav';
 
 class Player extends Component {
   state = {
+    value: '',
     affirmations: [],
     affirmation: '',
     lengthOfTime: 0,
@@ -11,6 +12,25 @@ class Player extends Component {
   }
 
   audio = new Audio(soundFile)
+
+  clearAffirmationsList = () => {
+    this.setState({affirmations: []})
+  }
+
+  onChangeAffirmation = e => {
+    this.setState({value: e.target.value})
+  }
+
+  onAddAffirmation = () =>  {
+    this.setState( state => {
+      const affirmations = state.affirmations.concat(state.value);
+
+      return {
+        affirmations,
+        value: ''
+      };
+    });
+};
   
 
   handleAffirmationChange = (e) => {
@@ -23,6 +43,15 @@ class Player extends Component {
     this.setState({
       lengthOfTime: e.target.value,
     })
+  }
+
+  onRemoveAffirmation = (i) => {
+      this.setState(state => {
+        const affirmations = state.affirmations.filter((item, j) => i !==j);
+        return {
+          affirmations,
+        }
+      })
   }
 
 
@@ -57,12 +86,33 @@ class Player extends Component {
     return(
       
       <div className ={styles.playerContainer}>
-        <textarea placeholder="Type your affirmation"
+        <textarea className ={styles.formElement} placeholder="Type your affirmation"
           onChange={this.handleAffirmationChange}
         >
         </textarea>
-          <label htmlFor="">How Long Do You Want to Re-program your subconcious</label>
-          <select onChange={this.handleTimeChange} name="" id="">]
+
+        <input type="text" value={this.state.value} onChange={this.onChangeAffirmation}/>
+
+        <ul>
+          {this.state.affirmations.map((item, index)=> (
+            <li key={item}>
+              {item}
+              <button onClick={() => this.onRemoveAffirmation(index)}>
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button onClick={this.onAddAffirmation}>
+          Add Affirmation
+        </button>
+        <button onClick={this.clearAffirmationsList}>
+          Reset Affirmations List
+        </button>
+
+          <label className ={styles.formElement} >How Long Do You Want to Re-program your subconcious</label>
+          <select className ={styles.formElement} onChange={this.handleTimeChange} name="" id="">]
+            <option defaultValue value="null"> -- Enter a time -- </option>
             <option value="20000">20 Seconds</option>
             <option value="300000">5 Minutes</option>
             <option value="600000">10 Minutes</option>
@@ -77,7 +127,7 @@ class Player extends Component {
             <option value="3.3e+6">55 Minutes</option>
             <option value="3.6e+6">1 Hour</option>
           </select>
-        <button onClick={() =>this.affirm(this.state.affirmation)}>AFFIRM</button>
+        <button className ={styles.formElement} onClick={() =>this.affirm(this.state.affirmation)}>AFFIRM</button>
       </div>
 
     )
