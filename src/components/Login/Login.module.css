@@ -1,0 +1,32 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.logo{
+  position: absolute;
+}
+
+.loginBtn{
+  position: absolute;
+  bottom: 25%;
+  height: 56px;
+  width: 315px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 8px 0px 16px 0px;
+  border-color: #FC0067;
+  background-color: #FC006780;
+  font-family: Calibri;
+  font-size: 1.5em;
+  color: white;
+  text-shadow: 4px 0px #650029;
+  outline: none;
+  box-shadow: none;
+}
+

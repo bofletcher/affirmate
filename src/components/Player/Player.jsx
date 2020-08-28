@@ -156,6 +156,7 @@ class Player extends Component {
         </textarea> */}
 
         <input 
+          className={styles.input}
           type="text" 
           value={this.state.value} 
           onChange={this.onChangeAffirmation}
@@ -180,7 +181,7 @@ class Player extends Component {
         </button>
 
           <label className={styles.formElement}>Choose your background music</label>
-          <select className={styles.formElement} onChange={this.handleTrackChange}>
+          <select className={styles.input} onChange={this.handleTrackChange}>
           <option defaultValue value="null"> -- Choose a track -- </option>
             <option value={soundFile}>track 1</option>
             <option value={loop}>track 2</option>
@@ -188,7 +189,7 @@ class Player extends Component {
           </select>
 
           <label className ={styles.formElement} >How Long Do You Want to Re-program your subconcious</label>
-          <select className ={styles.formElement} onChange={this.handleTimeChange}>]
+          <select className ={styles.input} onChange={this.handleTimeChange}>]
             <option defaultValue value="null"> -- Enter a time -- </option>
             <option value="20000">20 Seconds</option>
             <option value="300000">5 Minutes</option>
@@ -204,7 +205,7 @@ class Player extends Component {
             <option value="3.3e+6">55 Minutes</option>
             <option value="3.6e+6">1 Hour</option>
           </select>
-        <button className ={styles.formElement} onClick={() =>this.newAffirm(this.state.affirmations)}>BEGIN SUBCONSCIOUS PROGRAMMING</button>
+        <button className ={styles.btn} onClick={() =>this.newAffirm(this.state.affirmations)}>BEGIN</button>
         <div className={attachedStyles.join(' ')} onClick={this.closeModal}>
           CLOSE
         </div>
