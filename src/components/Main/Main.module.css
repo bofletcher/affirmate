@@ -34,3 +34,8 @@ right: 0;
 text-align: center;
 
 }
+
+.menuIcon {
+  width: 35px;
+  margin-left: 1.5em;
+}

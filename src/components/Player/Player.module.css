@@ -70,3 +70,28 @@
   box-shadow: none;
 
 }
+
+.step1Show {
+  display: flex !important;
+  height: 100%;
+  width: 100%;
+}
+
+.step1Hide {
+  display: none;
+}
+
+.step2Show {
+  display: flex;
+}
+
+.step2Hide {
+  display: none;
+}
+.step3Show {
+  display: flex;
+}
+
+.step3Hide {
+  display: none;
+}

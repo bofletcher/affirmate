@@ -11,9 +11,17 @@ class Player extends Component {
     affirmation: '',
     lengthOfTime: 0,
     playing: false,
-    track: null
+    track: null, 
+    step: 0
   }
 
+
+  componentDidMount() {
+    this.setState({
+      step: 1
+    })
+    console.log(this.state.step)
+  }
 
 
   clearAffirmationsList = () => {
@@ -146,7 +154,30 @@ class Player extends Component {
     if (this.state.playing === true) {
       attachedStyles = [styles.modalDiv, styles.modalShow]
     }
-    
+
+    let step1Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
+    if(this.state.step === 1) {
+      step1Styles = [styles.step1Show]
+    } else if (this.state.step !== 1) {
+      step1Styles = [styles.step1Hide]
+    } 
+
+    let step2Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
+    if(this.state.step === 2) {
+      step2Styles = [styles.step1Show]
+    } else if (this.state.step !== 2) {
+      step2Styles = [styles.step1Hide]
+    } 
+
+    let step3Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
+    if(this.state.step === 3) {
+      step3Styles = [styles.step1Show]
+    } else if (this.state.step !== 2) {
+      step3Styles = [styles.step1Hide]
+    } 
+
+
+
     return(
       
       <div className ={styles.playerContainer}>
@@ -155,15 +186,16 @@ class Player extends Component {
         >
         </textarea> */}
 
-        <input 
-          className={styles.input}
-          type="text" 
-          value={this.state.value} 
-          onChange={this.onChangeAffirmation}
-          placeholder="Type your affirmation"
-          />
-
-        <ul>
+        <div className={step1Styles.join(' ')}>  
+              <input 
+                className={styles.input}
+                type="text" 
+                value={this.state.value} 
+                onChange={this.onChangeAffirmation}
+                placeholder="Type your affirmation"
+                />
+        </div>    
+        {/* <ul>
           {this.state.affirmations.map((item, index)=> (
             <li key={item}>
               {item}
@@ -178,7 +210,10 @@ class Player extends Component {
         </button>
         <button onClick={this.clearAffirmationsList}>
           Reset Affirmations List
-        </button>
+        </button> */}
+
+
+        <div className={step2Styles.join(' ')} >
 
           <label className={styles.formElement}>Choose your background music</label>
           <select className={styles.input} onChange={this.handleTrackChange}>
@@ -188,6 +223,9 @@ class Player extends Component {
             <option value={rain}>track 3</option>
           </select>
 
+        </div>
+
+        <div className={step3Styles.join(' ')}>
           <label className ={styles.formElement} >How Long Do You Want to Re-program your subconcious</label>
           <select className ={styles.input} onChange={this.handleTimeChange}>]
             <option defaultValue value="null"> -- Enter a time -- </option>
@@ -206,6 +244,9 @@ class Player extends Component {
             <option value="3.6e+6">1 Hour</option>
           </select>
         <button className ={styles.btn} onClick={() =>this.newAffirm(this.state.affirmations)}>BEGIN</button>
+
+        </div >
+
         <div className={attachedStyles.join(' ')} onClick={this.closeModal}>
           CLOSE
         </div>
