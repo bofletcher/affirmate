@@ -164,16 +164,16 @@ class Player extends Component {
 
     let step2Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
     if(this.state.step === 2) {
-      step2Styles = [styles.step1Show]
+      step2Styles = [styles.step2Show]
     } else if (this.state.step !== 2) {
-      step2Styles = [styles.step1Hide]
+      step2Styles = [styles.step2Hide]
     } 
 
     let step3Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
     if(this.state.step === 3) {
-      step3Styles = [styles.step1Show]
+      step3Styles = [styles.step3Show]
     } else if (this.state.step !== 2) {
-      step3Styles = [styles.step1Hide]
+      step3Styles = [styles.step3Hide]
     } 
 
 
