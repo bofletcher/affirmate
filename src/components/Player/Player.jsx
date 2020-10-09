@@ -3,16 +3,21 @@ import styles from './Player.module.css';
 import soundFile from './synth.wav';
 import loop from './loop.flac'
 import rain from './rain-01.mp3'
+import arrow from '../../assets/arrowSVG.svg'
 
 class Player extends Component {
   state = {
     value: '',
     affirmations: [],
-    affirmation: '',
+    affirmation1: '',
+    affirmation2: '',
+    affirmation3: '',
+    affirmation4: '',
+    affirmation5: '',
     lengthOfTime: 0,
     playing: false,
     track: null, 
-    step: 0
+    step: 3
   }
 
 
@@ -28,13 +33,43 @@ class Player extends Component {
     this.setState({affirmations: []})
   }
 
-  onChangeAffirmation = e => {
-    this.setState({value: e.target.value})
+  onChangeAffirmation1 = e => {
+    this.setState({affirmation1: e.target.value})
   }
+
+  onChangeAffirmation2 = e => {
+    this.setState({affirmation2: e.target.value})
+  }
+
+  onChangeAffirmation3 = e => {
+    this.setState({affirmation3: e.target.value})
+  }
+
+  onChangeAffirmation4 = e => {
+    this.setState({affirmation4: e.target.value})
+  }
+
+  onChangeAffirmation5 = e => {
+    this.setState({affirmation5: e.target.value})
+  }
+
+
+
+  // handleAffirmationChange = (e) => {
+  //   this.setState({
+  //     affirmation: e.target.value, 
+  //   })
+  // }
+
 
   onAddAffirmation = () =>  {
     this.setState( state => {
-      const affirmations = state.affirmations.concat(state.value);
+      const affirmations = state.affirmations.concat(
+              state.affirmation1, 
+              state.affirmation2, 
+              state.affirmation3, 
+              state.affirmation4, 
+              state.affirmation5);
 
       return {
         affirmations,
@@ -42,13 +77,17 @@ class Player extends Component {
       };
     });
 };
+
+  addAllAffirmations = () => {
+    if(this.state.affirmation1 !== '') {
+      this.onAddAffirmation(this.state.affirmation1);
+    }
+  }
+
+
   
 
-  handleAffirmationChange = (e) => {
-    this.setState({
-      affirmation: e.target.value, 
-    })
-  }
+
 
   handleTimeChange = (e) => {
     this.setState({
@@ -187,13 +226,58 @@ class Player extends Component {
         </textarea> */}
 
         <div className={step1Styles.join(' ')}>  
+          <div className={styles.stepTxt}>Type your affirmations below:</div>
+            <div className={styles.inputContainer}>
+              <div className={styles.inputNumDiv}>1</div>
               <input 
                 className={styles.input}
                 type="text" 
-                value={this.state.value} 
-                onChange={this.onChangeAffirmation}
+                value={this.state.affirmation1} 
+                onChange={this.onChangeAffirmation1}
                 placeholder="Type your affirmation"
                 />
+              </div>
+              <div className={styles.inputContainer}>
+              <div className={styles.inputNumDiv}>2</div>
+              <input 
+                className={styles.input}
+                type="text" 
+                value={this.state.affirmation2} 
+                onChange={this.onChangeAffirmation2}
+                placeholder="Type your affirmation"
+                />
+              </div>
+              <div className={styles.inputContainer}>
+              <div className={styles.inputNumDiv}>3</div>
+              <input 
+                className={styles.input}
+                type="text" 
+                value={this.state.affirmation3} 
+                onChange={this.onChangeAffirmation3}
+                placeholder="Type your affirmation"
+                />
+              </div>
+              <div className={styles.inputContainer}>
+              <div className={styles.inputNumDiv}>4</div>
+              <input 
+                className={styles.input}
+                type="text" 
+                value={this.state.affirmation4} 
+                onChange={this.onChangeAffirmation4}
+                placeholder="Type your affirmation"
+                />
+              </div>
+              <div className={styles.inputContainer}>
+              <div className={styles.inputNumDiv}>5</div>
+              <input 
+                className={styles.input}
+                type="text" 
+                value={this.state.affirmation5} 
+                onChange={this.onChangeAffirmation5}
+                placeholder="Type your affirmation"
+                />
+              </div>
+          <div className={styles.menuArrow}><img src={arrow} alt="" onClick={this.onAddAffirmation}/></div>
         </div>    
         {/* <ul>
           {this.state.affirmations.map((item, index)=> (
