@@ -71,6 +71,8 @@ class Player extends Component {
               state.affirmation4, 
               state.affirmation5);
 
+        state.step = 2;
+
       return {
         affirmations,
         value: ''
@@ -110,6 +112,12 @@ class Player extends Component {
       })
   }
 
+
+  goToStepThree = () => {
+    this.setState({
+      step: 3
+    })
+  }
 
   // affirm(affirmation) {
   //   this.voices = window.speechSynthesis.getVoices()
@@ -211,7 +219,7 @@ class Player extends Component {
     let step3Styles = [styles.step1Show, styles.step2Hide, styles.step3Hide];
     if(this.state.step === 3) {
       step3Styles = [styles.step3Show]
-    } else if (this.state.step !== 2) {
+    } else if (this.state.step !== 3) {
       step3Styles = [styles.step3Hide]
     } 
 
@@ -299,20 +307,23 @@ class Player extends Component {
 
         <div className={step2Styles.join(' ')} >
 
-          <label className={styles.formElement}>Choose your background music</label>
+          <label className={styles.stepTxt}>Choose your background music</label>
+          <div className={styles.inputContainer}>
           <select className={styles.input} onChange={this.handleTrackChange}>
           <option defaultValue value="null"> -- Choose a track -- </option>
             <option value={soundFile}>track 1</option>
             <option value={loop}>track 2</option>
             <option value={rain}>track 3</option>
           </select>
-
+          </div>
+          <div className={styles.menuArrow}><img src={arrow} alt="" onClick={this.goToStepThree}/></div>
         </div>
 
         <div className={step3Styles.join(' ')}>
-          <label className ={styles.formElement} >How Long Do You Want to Re-program your subconcious</label>
+          <label className ={styles.stepTxt} >How Long Do You Want to Re-program your subconcious</label>
+          <div className={styles.inputContainer}>
           <select className ={styles.input} onChange={this.handleTimeChange}>]
-            <option defaultValue value="null"> -- Enter a time -- </option>
+            <option defaultValue value="null"> -- Select a time -- </option>
             <option value="20000">20 Seconds</option>
             <option value="300000">5 Minutes</option>
             <option value="600000">10 Minutes</option>
@@ -327,13 +338,13 @@ class Player extends Component {
             <option value="3.3e+6">55 Minutes</option>
             <option value="3.6e+6">1 Hour</option>
           </select>
+          </div>
+          <div className={styles.startBtnContainer}>
         <button className ={styles.btn} onClick={() =>this.newAffirm(this.state.affirmations)}>BEGIN</button>
-
+        </div>
         </div >
 
-        <div className={attachedStyles.join(' ')} onClick={this.closeModal}>
-          CLOSE
-        </div>
+        <div className={attachedStyles.join(' ')} onClick={this.closeModal} />
       </div>
 
     )

@@ -9,6 +9,7 @@ html {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   justify-content: center;
   padding: 1.5em;
   max-width: 500px;
@@ -28,7 +29,7 @@ html {
   position: fixed;
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
@@ -38,6 +39,10 @@ html {
   z-index: 2;
   cursor: pointer;
   transition: all 1000ms ease-in-out 0ms;
+  /* background-image: url(https://media.giphy.com/media/l44Qqq69E0gTyqLwk/source.gif); */
+  /* background-image: url(https://media.giphy.com/media/9MJ65OWvrNIXnOiNEk/giphy.gif); */
+  background-image: url(https://media.giphy.com/media/l4FGFr0bPkAeazQyI/giphy.gif);
+  background-size: cover;
 }
 
 
@@ -51,7 +56,7 @@ html {
 }
 
 .input {
-  width: 309px;
+  width: 100%;
   height: 56px;
   border-radius: 8px 0px 16px 0px;
   border-style: solid;
@@ -96,6 +101,9 @@ html {
 
 .step2Show {
   display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .step2Hide {
@@ -103,6 +111,9 @@ html {
 }
 .step3Show {
   display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .step3Hide {
@@ -113,6 +124,7 @@ html {
   font-family: Calibri;
   font-size: 1.5em;
   color: white;
+  text-align: center;
 }
 
 .inputContainer{
@@ -138,4 +150,21 @@ html {
   border-radius: 8px 0px 16px 0px;
   border-style: solid;
   border-width: 1px;
+  padding-bottom: 5px;
+}
+
+.menuArrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.startBtnContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-items: center;
 }
