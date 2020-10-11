@@ -168,3 +168,58 @@ html {
   justify-content: flex-end;
   align-items: center;
 }
+
+.menuBar {
+  display: flex;
+  height: 83px;
+  min-height: 83px;
+  width: 100%;
+  background-color: #1a0001;
+  position: relative;
+  align-items: center;
+}
+
+.mainContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuLogo {
+  width: 35px;
+  position: absolute;
+margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+text-align: center;
+
+}
+
+.menuIcon {
+  width: 35px;
+  margin-left: 1.5em;
+}
+
+
+.Container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  padding-bottom: 2em;
+}
+
+
+.arrowContainer {
+  width: 100%;
+  padding-right: 2em;
+  padding-left: 2em;
+}
+
+.arrowHide {
+  display: none;
+}

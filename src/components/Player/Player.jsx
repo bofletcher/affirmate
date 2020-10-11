@@ -4,6 +4,8 @@ import soundFile from './synth.wav';
 import loop from './loop.flac'
 import rain from './rain-01.mp3'
 import arrow from '../../assets/arrowSVG.svg'
+import logo from '../../assets/LOGO.svg'
+import menuIcon from '../../assets/menuIcon.svg'
 
 class Player extends Component {
   state = {
@@ -194,6 +196,30 @@ class Player extends Component {
     this.audio.volume = 0.7;
   }
 
+  goBack1Step = (currentStep) => {
+   if(currentStep === 3) {
+    this.setState({
+      step: 2
+    })
+   } else if(currentStep === 2) {
+     this.setState({
+       step: 1
+     })
+   }
+  }
+
+  goToNextStep = (currentStep) => {
+    if(currentStep === 1) {
+      this.setState({
+        step: 2
+      })
+    } else if(currentStep === 2) {
+      this.setState({
+        step: 3
+      })
+    }
+  }
+
     
   render() {
      
@@ -223,10 +249,23 @@ class Player extends Component {
       step3Styles = [styles.step3Hide]
     } 
 
+    let arrowStyles = [styles.arrowContainer]
+    if (this.state.step === 3) {
+      arrowStyles = [styles.arrowHide]
+    }
+
 
 
     return(
-      
+      <div className={styles.Container}>
+        <div className={styles.menuBar}>
+          <div>
+            <img className={styles.menuIcon} src={menuIcon} alt="" 
+              onClick={() => this.goBack1Step(this.state.step)}
+            />
+          </div>   
+          <img className={styles.menuLogo} src={logo} alt=""/>
+          </div>
       <div className ={styles.playerContainer}>
         {/* <textarea className ={styles.formElement} placeholder="Type your affirmation"
           onChange={this.handleAffirmationChange}
@@ -242,7 +281,7 @@ class Player extends Component {
                 type="text" 
                 value={this.state.affirmation1} 
                 onChange={this.onChangeAffirmation1}
-                placeholder="Type your affirmation"
+                placeholder="AFFIRMATION"
                 />
               </div>
               <div className={styles.inputContainer}>
@@ -252,7 +291,7 @@ class Player extends Component {
                 type="text" 
                 value={this.state.affirmation2} 
                 onChange={this.onChangeAffirmation2}
-                placeholder="Type your affirmation"
+                placeholder="AFFIRMATION"
                 />
               </div>
               <div className={styles.inputContainer}>
@@ -262,7 +301,7 @@ class Player extends Component {
                 type="text" 
                 value={this.state.affirmation3} 
                 onChange={this.onChangeAffirmation3}
-                placeholder="Type your affirmation"
+                placeholder="AFFIRMATION"
                 />
               </div>
               <div className={styles.inputContainer}>
@@ -272,7 +311,7 @@ class Player extends Component {
                 type="text" 
                 value={this.state.affirmation4} 
                 onChange={this.onChangeAffirmation4}
-                placeholder="Type your affirmation"
+                placeholder="AFFIRMATION"
                 />
               </div>
               <div className={styles.inputContainer}>
@@ -282,10 +321,9 @@ class Player extends Component {
                 type="text" 
                 value={this.state.affirmation5} 
                 onChange={this.onChangeAffirmation5}
-                placeholder="Type your affirmation"
+                placeholder="AFFIRMATION"
                 />
               </div>
-          <div className={styles.menuArrow}><img src={arrow} alt="" onClick={this.onAddAffirmation}/></div>
         </div>    
         {/* <ul>
           {this.state.affirmations.map((item, index)=> (
@@ -316,7 +354,6 @@ class Player extends Component {
             <option value={rain}>track 3</option>
           </select>
           </div>
-          <div className={styles.menuArrow}><img src={arrow} alt="" onClick={this.goToStepThree}/></div>
         </div>
 
         <div className={step3Styles.join(' ')}>
@@ -345,6 +382,10 @@ class Player extends Component {
         </div >
 
         <div className={attachedStyles.join(' ')} onClick={this.closeModal} />
+      </div>
+        <div className={arrowStyles.join(' ')}>
+      <div className={styles.menuArrow}><img src={arrow} alt="" onClick={() =>this.goToNextStep(this.state.step)}/></div>
+      </div>
       </div>
 
     )

@@ -13,10 +13,10 @@ class Main extends Component {
     return (
       <Router>
       <div className={styles.main}>
-        <div className={styles.menuBar}>
+     <div className={styles.menuBar}>
           <div>
             <img className={styles.menuIcon} src={menuIcon} alt=""/>
-          </div>
+          </div>   
           <img className={styles.menuLogo} src={logo} alt=""/>
           </div>
         <div className={styles.mainContainer}>
