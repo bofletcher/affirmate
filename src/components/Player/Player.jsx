@@ -18,7 +18,7 @@ class Player extends Component {
     affirmation5: '',
     lengthOfTime: 0,
     playing: false,
-    track: null, 
+    track: null,
     step: 3
   }
 
@@ -81,6 +81,7 @@ class Player extends Component {
       };
     });
 };
+
 
   addAllAffirmations = () => {
     if(this.state.affirmation1 !== '') {
@@ -213,6 +214,8 @@ class Player extends Component {
       this.setState({
         step: 2
       })
+      this.clearAffirmationsList()
+      this.onAddAffirmation()
     } else if(currentStep === 2) {
       this.setState({
         step: 3
