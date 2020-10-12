@@ -201,6 +201,8 @@ text-align: center;
 .menuIcon {
   width: 35px;
   margin-left: 1.5em;
+  transform: rotate(180deg);
+  height: 34px;
 }
 
 

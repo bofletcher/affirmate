@@ -5,7 +5,7 @@ import loop from './loop.flac'
 import rain from './rain-01.mp3'
 import arrow from '../../assets/arrowSVG.svg'
 import logo from '../../assets/LOGO.svg'
-import menuIcon from '../../assets/menuIcon.svg'
+import menuIcon from '../../assets/arrowSVGpink.svg'
 
 class Player extends Component {
   state = {
