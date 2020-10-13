@@ -71,6 +71,10 @@ html {
   
 }
 
+option {
+  background-color: #FC006780;;
+}
+
 .btn {
   height: 56px;
   width: 315px;
