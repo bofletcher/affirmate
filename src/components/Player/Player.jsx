@@ -364,7 +364,6 @@ class Player extends Component {
           <div className={styles.inputContainer}>
           <select className ={styles.input} onChange={this.handleTimeChange}>]
             <option defaultValue value="null"> -- Select a time -- </option>
-            <option value="20000">20 Seconds</option>
             <option value="300000">5 Minutes</option>
             <option value="600000">10 Minutes</option>
             <option value="900000">15 Minutes</option>
